@@ -1,6 +1,10 @@
 <template>
-  <v-app dark>
-    <v-app-bar color="accent" fixed app class="desc_menu">
+  <v-app dark class="overflow-hidden">
+    <v-app-bar
+      color="accent"
+      app
+      fixed
+    >
       <div v-if="!isMobile" class="menu_items">
         <span v-for="(item, i) of menu" :key="i" v-scroll-to="`#${item}`" class="menu_item">
           {{ item }}
@@ -90,14 +94,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.desc_menu {
-  margin: 0 auto;
-  width: 100%;
-
-  .menu_items {
-    display: flex;
-    gap: 10px;
-  }
+.menu_items {
+  display: flex;
+  gap: 20px;
 }
 
 .menu_item {
