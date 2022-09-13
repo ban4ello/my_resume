@@ -99,6 +99,47 @@ export default {
     }
   },
 
+  head () {
+    const title = 'Ivan Miroshnichenko. Frontend Web Developer'
+    const description = `I am Ivan. I'm ${new Date().getFullYear() - 1994} years old. And I really love developing software and electronic devices.`
+
+    return {
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        {
+          hid: 'key',
+          name: 'key',
+          content: 'main'
+        },
+        {
+          hid: 'og:site_name',
+          property: 'og:site_name',
+          content: 'Ivan Miroshnichenko'
+        },
+        {
+          hid: 'og:type',
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: title
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        }
+      ]
+    }
+  },
+
   computed: {
     lightMode () {
       return !this.$vuetify.theme.isDark

@@ -9,8 +9,6 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - my_resume',
-    title: 'my_resume',
     htmlAttrs: {
       lang: 'en'
     },
