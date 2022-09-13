@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="12" md="6">
-      <v-card>
+    <v-col>
+      <v-card id="summary">
         <v-card-title class="headline ma-4">
           Summary
         </v-card-title>
@@ -11,7 +11,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card>
+      <v-card id="skills">
         <v-card-title class="headline ma-4">
           Technical skills
         </v-card-title>
@@ -21,7 +21,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card>
+      <v-card id="hobby">
         <v-card-title class="headline ma-4">
           Hobby
         </v-card-title>
@@ -31,7 +31,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card>
+      <v-card id="experience">
         <v-card-title class="headline ma-4">
           Working experience
         </v-card-title>
@@ -41,7 +41,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card>
+      <v-card id="contacts">
         <v-card-title class="headline ma-4">
           Contacts
         </v-card-title>
