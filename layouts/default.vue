@@ -1,10 +1,10 @@
 <template>
   <v-app dark>
-    <v-app-bar fixed app class="desc_menu">
+    <v-app-bar color="accent" fixed app class="desc_menu">
       <div v-if="!isMobile" class="menu_items">
-        <v-toolbar-title v-for="(item, i) of menu" :key="i">
-          <a v-scroll-to="`#${item}`" class="menu_item" href="#">{{ item }}</a>
-        </v-toolbar-title>
+        <span v-for="(item, i) of menu" :key="i" v-scroll-to="`#${item}`" class="menu_item">
+          {{ item }}
+        </span>
       </div>
 
       <v-app-bar-nav-icon v-else @click="drawer = !drawer" />
@@ -12,22 +12,28 @@
       <v-spacer />
 
       <v-app-bar-title>Resume of Ivan Miroshnichenko</v-app-bar-title>
+
+      <div class="ml-4 pointer" @click="swap">
+        <v-icon v-if="theme === 'dark'">
+          mdi-brightness-6
+        </v-icon>
+        <v-icon v-else>
+          mdi-brightness-4
+        </v-icon>
+      </div>
     </v-app-bar>
 
     <v-navigation-drawer
       v-model="drawer"
       temporary
       fixed
-      class="mobile_menu"
+      color="accent"
     >
       <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
+        <v-list-item-group v-model="group" class="mobile_menu">
           <v-list-item v-for="(item, i) of menu" :key="i" v-scroll-to="`#${item}`">
             <v-list-item-title>
-              <a class="menu_item" href="#">{{ item }}</a>
+              <span class="menu_item">{{ item }}</span>
             </v-list-item-title>
           </v-list-item>
         </v-list-item-group>
@@ -40,7 +46,7 @@
       </v-container>
     </v-main>
 
-    <v-footer absolute app>
+    <v-footer absolute app color="accent">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -59,15 +65,32 @@ export default {
   },
 
   computed: {
+    theme () {
+      return this.$vuetify.theme.isDark ? 'dark' : 'light'
+    },
     isMobile () {
       return this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
+    }
+  },
+
+  methods: {
+    touchAll () {
+      const value = this.$vuetify.theme.themes[this.theme]
+      this.$vuetify.theme.themes[this.theme] = {}
+      this.$vuetify.theme.themes[this.theme] = value
+    },
+
+    swap () {
+      this.$vuetify.theme.isDark = !this.$vuetify.theme.isDark
+
+      // necessary to reset colors after changing the theme, perhaps a Vuetify.js bug
+      this.touchAll(1)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .desc_menu {
-  // max-width: 1170px;
   margin: 0 auto;
   width: 100%;
 
@@ -80,9 +103,13 @@ export default {
 .menu_item {
   text-decoration: none;
   text-transform: capitalize;
-  color: #fff;
-  // display: flex;
-  // grid-gap: 53px;
-  // align-items: center;
+}
+
+.mobile_menu .v-list-item__title {
+  font-size: 1.2em;
+}
+
+.v-application {
+  background-color: var(--v-primary-base)
 }
 </style>
