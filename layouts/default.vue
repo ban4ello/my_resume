@@ -46,7 +46,7 @@
       </v-container>
     </v-main>
 
-    <v-footer absolute app color="accent">
+    <v-footer absolute app color="accent" class="d-flex justify-center">
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -111,5 +111,11 @@ export default {
 
 .v-application {
   background-color: var(--v-primary-base)
+}
+</style>
+<style lang="scss">
+.v-toolbar__content {
+  max-width: 1170px;
+  margin: 0 auto;
 }
 </style>
