@@ -1,6 +1,6 @@
 <template>
   <v-app dark class="overflow-hidden">
-    <v-app-bar
+    <!-- <v-app-bar
       color="accent"
       app
       fixed
@@ -42,7 +42,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <v-main>
       <v-container>
