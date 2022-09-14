@@ -26,15 +26,31 @@
       </div>
 
       <div id="main-content">
-        <v-card id="summary" color="secondary">
-          <v-card-title class="headline ma-4">
-            Summary
-          </v-card-title>
+        <v-row class="font-size-extra-large">
+          <v-col>
+            <h2>Summary</h2>
+          </v-col>
+        </v-row>
 
-          <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae eum dignissimos, vel accusantium laboriosam natus corporis amet dolores adipisci? Dolor a iste dolorem excepturi, officia ea consectetur? Molestias, laborum?
-          </v-card-text>
-        </v-card>
+        <div class="d-flex justify-center gap-50">
+          <div id="summary" class="d-flex flex-column justify-center">
+            <h3 class="text-title bold mb-4">
+              Ivan Miroshnichenko
+            </h3>
+
+            <p class="font-size-large">
+              Hi! &#128075;&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
+              with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
+            </p>
+          </div>
+
+          <div>
+            <img
+              class="circle"
+              :src="require('~/static/preview.jpg')"
+            >
+          </div>
+        </div>
 
         <v-card id="skills" color="secondary">
           <v-card-title class="headline ma-4">
@@ -166,12 +182,14 @@ export default {
       }
     },
     eraseText () {
+      if (this.displayTextArrayIndex === 1) {
+        // needed for the fastest appearance of the "about me" text
+        this.newTextDelay = 100
+      }
       if (this.displayTextArrayIndex + 1 >= this.displayTextArray.length && this.charIndex === this.displayTextArray[this.displayTextArrayIndex].length) {
         clearTimeout(this.timeoutId)
 
-        setTimeout(() => {
-          this.showBtn = true
-        }, 0)
+        this.showBtn = true
 
         return
       }
@@ -202,6 +220,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 100px;
 
     .start-flex {
       align-items: flex-start;
@@ -225,12 +244,21 @@ export default {
   .action-btn {
     font-size: 4em;
     text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .circle {
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
   }
 
   @media screen and (max-width: 833px) {
     .typeWiriter {
       height: calc(100vh);
       align-items: center;
+      margin-top: 20px;
 
       h1 {
         font-size: 4rem;
@@ -240,6 +268,22 @@ export default {
     .action-btn {
       font-size: 3em;
     }
+  }
+
+  .gap-50 {
+    gap: 50px;
+  }
+  .font-size-large {
+    font-size: 1.5em;
+  }
+  .font-size-extra-large {
+    font-size: 3em;
+  }
+  .text-title {
+    font-size: 2em;
+  }
+  .bold {
+    font-weight: bold;
   }
 
   // Cursor blinking CSS Starts...
