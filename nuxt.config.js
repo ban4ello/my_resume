@@ -1,6 +1,13 @@
 import colors from 'vuetify/es5/util/colors'
+const base = process.env.NODE_ENV === 'gh-pages' ? '/vue-examples/' : '/'
 
 export default {
+  router: {
+    base
+  },
+  build: {
+    publicPath: '/static/'
+  },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -99,9 +106,10 @@ export default {
         }
       }
     }
-  },
+  }
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
+  // build: {
+  //   publicPath: '/nuxt/'
+  // }
 }
