@@ -26,41 +26,129 @@
       </div>
 
       <div id="main-content">
-        <v-row class="font-size-extra-large">
-          <v-col>
-            <h2>Summary</h2>
-          </v-col>
-        </v-row>
+        <div class="summary_block large-margin">
+          <v-row class="font-size-extra-large">
+            <v-col>
+              <h2>Summary</h2>
+            </v-col>
+          </v-row>
 
-        <div class="d-flex justify-center gap-50">
-          <div id="summary" class="d-flex flex-column justify-center">
-            <h3 class="text-title bold mb-4">
-              Ivan Miroshnichenko
-            </h3>
+          <div class="d-flex justify-center gap-50">
+            <div id="summary" class="d-flex flex-column justify-center">
+              <h3 class="text-title bold mb-4">
+                Ivan Miroshnichenko
+              </h3>
 
-            <p class="font-size-large">
-              Hi! &#128075;&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
-              with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
-            </p>
-          </div>
+              <p class="font-size-large">
+                Hi! &#128075;&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
+                with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
+              </p>
+            </div>
 
-          <div>
-            <img
-              class="circle"
-              :src="require('~/static/preview.jpg')"
-            >
+            <div>
+              <img
+                class="circle"
+                :src="require('~/static/preview.jpg')"
+              >
+            </div>
           </div>
         </div>
 
-        <v-card id="skills" color="secondary">
-          <v-card-title class="headline ma-4">
-            Technical skills
-          </v-card-title>
+        <div id="skills">
+          <v-row class="font-size-extra-large">
+            <v-col>
+              <h2>Technical skills</h2>
+            </v-col>
+          </v-row>
 
-          <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae eum dignissimos, vel accusantium laboriosam natus corporis amet dolores adipisci? Dolor a iste dolorem excepturi, officia ea consectetur? Molestias, laborum?
-          </v-card-text>
-        </v-card>
+          <div class="skills_block">
+            <div class="d-flex flex-column justify-center">
+              <p class="text-title bold mb-4">
+                While working with web applications, I have worked with these technologies:
+              </p>
+            </div>
+
+            <div class="items">
+              <div class="items-col">
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/html.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      HTML
+                    </h3>
+                    <span class="italic">its latest specifications.</span>
+                  </div>
+                </div>
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/javascript.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      JavaScript
+                    </h3>
+                    <span class="italic">its latest specifications.</span>
+                  </div>
+                </div>
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/react.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      React.js
+                    </h3>
+                    <span class="italic">used it, it scales well, I might use it again.</span>
+                  </div>
+                </div>
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/blockchain.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      Blockchain
+                    </h3>
+                    <span class="italic">WEB3.0 is our future</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="items-col">
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/css3.png')">
+                  <h3 class="bold text-subtitle">
+                    CSS, SASS, SCSS, LESS
+                  </h3>
+                </div>
+
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/vue.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      VUE.JS, VUEX, NUXT.JS
+                    </h3>
+                    <span class="italic">because it is the best framework ever</span>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/webpack.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      Webpack
+                    </h3>
+                    <span class="italic">but need to move on the Vite.js</span>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <img width="120px" :src="require('~/assets/icons/git.png')">
+                  <div>
+                    <h3 class="bold text-subtitle">
+                      GIT
+                    </h3>
+                    <span class="italic">where would we be without it in web development?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <v-card id="hobby" color="secondary">
           <v-card-title class="headline ma-4">
@@ -241,6 +329,32 @@ export default {
     }
   }
 
+  .skills_block {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .items {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+
+      .items-col {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        gap: 25px;
+      }
+
+      .item {
+        max-width: 450px;
+        display: grid;
+        gap: 15px;
+        grid-template-columns: max-content 1fr;
+        align-items: center;
+      }
+    }
+  }
+
   .action-btn {
     font-size: 4em;
     text-decoration: underline;
@@ -268,6 +382,10 @@ export default {
     .action-btn {
       font-size: 3em;
     }
+
+    .large-margin {
+      margin-bottom: 50px
+    }
   }
 
   .gap-50 {
@@ -282,8 +400,19 @@ export default {
   .text-title {
     font-size: 2em;
   }
+  .text-subtitle {
+    font-size: 1.5em;
+  }
   .bold {
     font-weight: bold;
+  }
+  .italic {
+    font-size: 1.5em;
+    font-style: italic;
+  }
+
+  .large-margin {
+    margin-bottom: 100px
   }
 
   // Cursor blinking CSS Starts...
