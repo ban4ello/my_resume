@@ -152,39 +152,6 @@
           </div>
         </div>
 
-        <div id="hobby" class="large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col>
-              <h2>Hobby 🎯</h2>
-            </v-col>
-          </v-row>
-
-          <div class="hobby_block">
-            <div class="items">
-              <div class="items-col">
-                <h3 class="bold text-title">
-                  I independently develop automation devices, Smart home systems and some extraordinary devices.
-                </h3>
-                <h3 class="bold text-title">
-                  When developing, I use microcontrollers famalys: Atmel AVR (tinyAVR, megaAVR): RISC-V (ESP32/8266) and IoT
-                </h3>
-                <h3 class="bold text-title">
-                  I program microcontrollers on C++ (with AVR-libs), js (used the Johnny-Five framework, executed in Node.js), used the "Mongoose OS" framework for ESP MC).
-                </h3>
-              </div>
-
-              <div class="items-row">
-                <img width="100px" :src="require('~/assets/smart-tv.png')">
-                <img width="100px" :src="require('~/assets/smarthome.png')">
-                <img width="100px" :src="require('~/assets/microcontroller.png')">
-                <img width="100px" :src="require('~/assets/microprocessor.png')">
-                <img width="100px" :src="require('~/assets/nodejs.png')">
-                <img width="100px" :src="require('~/assets/c.png')">
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div id="experience" class="large-margin">
           <v-row class="font-size-extra-large mb-8">
             <v-col>
@@ -216,6 +183,48 @@
               </div>
             </v-timeline-item>
           </v-timeline>
+        </div>
+
+        <div id="hobby" class="large-margin">
+          <v-row class="font-size-extra-large">
+            <v-col>
+              <h2>Hobby 🎯</h2>
+            </v-col>
+          </v-row>
+
+          <div class="hobby_block">
+            <div class="items large-margin">
+              <div class="items-col">
+                <h3 class="bold text-title">
+                  I independently develop automation devices, Smart home systems and some extraordinary devices.
+                </h3>
+                <h3 class="bold text-title">
+                  When developing, I use microcontrollers famalys: Atmel AVR (tinyAVR, megaAVR): RISC-V (ESP32/8266) and IoT
+                </h3>
+                <h3 class="bold text-title">
+                  I program microcontrollers on C++ (with AVR-libs), js (used the Johnny-Five framework, executed in Node.js), used the "Mongoose OS" framework for ESP MC).
+                </h3>
+              </div>
+
+              <div class="items-row">
+                <img width="100px" :src="require('~/assets/smart-tv.png')">
+                <img width="100px" :src="require('~/assets/smarthome.png')">
+                <img width="100px" :src="require('~/assets/microcontroller.png')">
+                <img width="100px" :src="require('~/assets/microprocessor.png')">
+                <img width="100px" :src="require('~/assets/nodejs.png')">
+                <img width="100px" :src="require('~/assets/c.png')">
+              </div>
+            </div>
+
+            <div class="d-flex justify-center flex-column align-center">
+              <h3 class="text-title info--text">
+                I also like to play chess <span class="icon-size">♛</span>. You can challenge me.
+              </h3>
+              <h3 class="text-title">
+                Link for invitation : <a class="info--text" href="https://chess.com/play/ban4ello" target="_blank">fight me in chess</a>
+              </h3>
+            </div>
+          </div>
         </div>
 
         <div id="contacts" class="large-margin">
