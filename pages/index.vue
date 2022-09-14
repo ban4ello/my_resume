@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div id="main-content">
+      <div id="main-content" class="main" :class="screen">
         <div class="summary_block large-margin">
           <v-row class="font-size-extra-large">
             <v-col>
@@ -40,14 +40,16 @@
               </h3>
 
               <p class="font-size-large">
-                Hi! &#128075;&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
+                <span style="font-size: 1.7em;">&#128075;</span>&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
 
             <div>
               <img
-                class="circle"
+                width="400px"
+                height="400px"
+                class="circle mobile-view"
                 :src="require('~/static/preview.jpg')"
               >
             </div>
@@ -245,6 +247,10 @@ export default {
   },
 
   computed: {
+    screen () {
+      return this.$vuetify.breakpoint.name
+    },
+
     lightMode () {
       return !this.$vuetify.theme.isDark
     }
@@ -302,30 +308,107 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .typeWiriter {
-    width: 100%;
-    height: calc(100vh);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 100px;
+.typeWiriter {
+  width: 100%;
+  height: calc(100vh);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
 
-    .start-flex {
-      align-items: flex-start;
-      width: 100%;
-      margin-bottom: 75px;
+  .start-flex {
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 75px;
+  }
+
+  h1 {
+    font-size: 5rem;
+    font-weight: normal;
+    span.typed-text {
+      color: #d2b94b;
+
+      &.lightMode {
+        color: #064663;
+      }
     }
+  }
+}
+
+.action-btn {
+  font-size: 4em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 833px) {
+  .typeWiriter {
+    height: calc(100vh);
+    align-items: center;
+    margin-top: 20px;
 
     h1 {
-      font-size: 5rem;
-      font-weight: normal;
-      span.typed-text {
-        color: #d2b94b;
+      font-size: 4rem;
+    }
+  }
 
-        &.lightMode {
-          color: #064663;
-        }
+  .action-btn {
+    font-size: 3em;
+  }
+
+  .large-margin {
+    margin-bottom: 50px
+  }
+}
+
+.main {
+  &.md {
+    .mobile-view {
+      width: 300px;
+      height: 300px;
+    }
+
+    .font-size-extra-large {
+      font-size: 2em;
+    }
+
+    .text-title {
+      font-size: 1.5em;
+    }
+  }
+
+  &.sm {
+    .mobile-view {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  &.xs {
+    .skills_block {
+      .items {
+        flex-direction: column;
       }
+    }
+    .font-size-extra-large {
+      font-size: 1.5em;
+    }
+
+    .text-title {
+      font-size: 1em;
+    }
+
+    .mobile-view {
+      width: 150px;
+      height: 150px;
+    }
+
+    .font-size-large {
+      font-size: 0.8em;
+    }
+
+    .italic {
+      font-size: 1em;
     }
   }
 
@@ -355,37 +438,9 @@ export default {
     }
   }
 
-  .action-btn {
-    font-size: 4em;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
   .circle {
     border-radius: 50%;
-    width: 400px;
-    height: 400px;
     object-fit: cover;
-  }
-
-  @media screen and (max-width: 833px) {
-    .typeWiriter {
-      height: calc(100vh);
-      align-items: center;
-      margin-top: 20px;
-
-      h1 {
-        font-size: 4rem;
-      }
-    }
-
-    .action-btn {
-      font-size: 3em;
-    }
-
-    .large-margin {
-      margin-bottom: 50px
-    }
   }
 
   .gap-50 {
@@ -414,6 +469,7 @@ export default {
   .large-margin {
     margin-bottom: 100px
   }
+}
 
   // Cursor blinking CSS Starts...
   .blinking-cursor {
