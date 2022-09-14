@@ -29,7 +29,7 @@
         <div class="summary_block large-margin">
           <v-row class="font-size-extra-large">
             <v-col>
-              <h2>Summary</h2>
+              <h2>Summary 👨‍💻</h2>
             </v-col>
           </v-row>
 
@@ -59,7 +59,7 @@
         <div id="skills" class="large-margin">
           <v-row class="font-size-extra-large">
             <v-col class="mb-4">
-              <h2>Technical skills</h2>
+              <h2>🤹 Technical skills</h2>
             </v-col>
           </v-row>
 
@@ -73,7 +73,7 @@
             <div class="items">
               <div class="items-col">
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/html.png')">
+                  <img width="120px" :src="require('~/assets/html.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       HTML
@@ -82,7 +82,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/javascript.png')">
+                  <img width="120px" :src="require('~/assets/javascript.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       JavaScript
@@ -91,7 +91,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/react.png')">
+                  <img width="120px" :src="require('~/assets/react.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       React.js
@@ -100,7 +100,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/blockchain.png')">
+                  <img width="120px" :src="require('~/assets/blockchain.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       Blockchain
@@ -112,14 +112,14 @@
 
               <div class="items-col">
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/css3.png')">
+                  <img width="120px" :src="require('~/assets/css3.png')">
                   <h3 class="bold text-subtitle">
                     CSS, SASS, SCSS, LESS
                   </h3>
                 </div>
 
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/vue.png')">
+                  <img width="120px" :src="require('~/assets/vue.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       VUE.JS, VUEX, NUXT.JS
@@ -129,7 +129,7 @@
                 </div>
 
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/webpack.png')">
+                  <img width="120px" :src="require('~/assets/webpack.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       Webpack
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="item">
-                  <img width="120px" :src="require('~/assets/icons/git.png')">
+                  <img width="120px" :src="require('~/assets/git.png')">
                   <div>
                     <h3 class="bold text-subtitle">
                       GIT
@@ -155,7 +155,7 @@
         <div id="hobby" class="large-margin">
           <v-row class="font-size-extra-large">
             <v-col>
-              <h2>Hobby</h2>
+              <h2>Hobby 🎯</h2>
             </v-col>
           </v-row>
 
@@ -163,7 +163,7 @@
             <div class="items">
               <div class="items-col">
                 <h3 class="bold text-title">
-                  I independently develop automation devices <span class="icon-size">📟</span>, Smart home systems <span class="icon-size">🏠</span> and some extraordinary devices <span class="icon-size">🦾</span>.
+                  I independently develop automation devices, Smart home systems and some extraordinary devices.
                 </h3>
                 <h3 class="bold text-title">
                   When developing, I use microcontrollers famalys: Atmel AVR (tinyAVR, megaAVR): RISC-V (ESP32/8266) and IoT
@@ -174,26 +174,49 @@
               </div>
 
               <div class="items-row">
-                <img width="100px" :src="require('~/assets/icons/smart-tv.png')">
-                <img width="100px" :src="require('~/assets/icons/smarthome.png')">
-                <img width="100px" :src="require('~/assets/icons/microcontroller.png')">
-                <img width="100px" :src="require('~/assets/icons/microprocessor.png')">
-                <img width="100px" :src="require('~/assets/icons/nodejs.png')">
-                <img width="100px" :src="require('~/assets/icons/c.png')">
+                <img width="100px" :src="require('~/assets/smart-tv.png')">
+                <img width="100px" :src="require('~/assets/smarthome.png')">
+                <img width="100px" :src="require('~/assets/microcontroller.png')">
+                <img width="100px" :src="require('~/assets/microprocessor.png')">
+                <img width="100px" :src="require('~/assets/nodejs.png')">
+                <img width="100px" :src="require('~/assets/c.png')">
               </div>
             </div>
           </div>
         </div>
 
-        <v-card id="experience" color="secondary">
-          <v-card-title class="headline ma-4">
-            Working experience
-          </v-card-title>
+        <div id="experience" class="large-margin">
+          <v-row class="font-size-extra-large mb-8">
+            <v-col>
+              <h2>🛠️ Working experience</h2>
+            </v-col>
+          </v-row>
 
-          <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae eum dignissimos, vel accusantium laboriosam natus corporis amet dolores adipisci? Dolor a iste dolorem excepturi, officia ea consectetur? Molestias, laborum?
-          </v-card-text>
-        </v-card>
+          <v-timeline>
+            <v-timeline-item
+              v-for="(item, i) in experienceList"
+              :key="i"
+              :color="item.color"
+              small
+            >
+              <template #opposite>
+                <span
+                  :class="`headline font-weight-bold ${item.color}--text`"
+                  v-text="item.year"
+                />
+              </template>
+              <div class="py-4">
+                <span :class="`text-title mb-4 ${item.color}--text`">
+                  {{ item.experience.title }}
+                </span>
+
+                <div class="font-size-large">
+                  {{ item.experience.text }}
+                </div>
+              </div>
+            </v-timeline-item>
+          </v-timeline>
+        </div>
 
         <v-card id="contacts" color="secondary">
           <v-card-title class="headline ma-4">
@@ -215,6 +238,40 @@ export default {
 
   data () {
     return {
+      experienceList: [
+        {
+          color: 'disabled',
+          year: 'mid 2018 - 2019',
+          experience: {
+            title: 'Self-study of web technologies',
+            text: ''
+          }
+        },
+        {
+          color: 'info',
+          year: '2019 - 2020',
+          experience: {
+            title: 'WOK-email',
+            text: 'App for creating responsive HTML-email'
+          }
+        },
+        {
+          color: 'info',
+          year: '2020 - sep 2020',
+          experience: {
+            title: '[noname] startup',
+            text: 'Application for learning foreign languages'
+          }
+        },
+        {
+          color: 'info',
+          year: 'sep 2020 - current time',
+          experience: {
+            title: 'EventScouts',
+            text: 'Decentralized app for searching events and activities using WEB 3.0'
+          }
+        }
+      ],
       typeValue: '',
       typeStatus: false,
       displayTextArray: ['person who loves programming...', 'creator...', 'Vue frontend developer.'],

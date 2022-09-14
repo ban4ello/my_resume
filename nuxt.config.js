@@ -52,8 +52,13 @@ export default {
         duration: 1500,
         offset: -200
       }
-    ]
+    ],
+    '@nuxtjs/svg-sprite'
   ],
+
+  svgSprite: {
+    input: '~/assets/icons'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -75,6 +80,8 @@ export default {
           accent: '#041C32',
           secondary: '#064663',
           info: '#ECB365',
+          disabled: '#464646',
+          tender: '#f2cfda',
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
@@ -85,6 +92,7 @@ export default {
           accent: '#ECE5C7',
           secondary: '#C2DED1',
           info: '#354259',
+          tender: '#f2cfda',
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
