@@ -40,7 +40,7 @@
               </h3>
 
               <p class="font-size-large">
-                <span style="font-size: 1.7em;">&#128075;</span>&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
+                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
@@ -56,16 +56,16 @@
           </div>
         </div>
 
-        <div id="skills">
+        <div id="skills" class="large-margin">
           <v-row class="font-size-extra-large">
-            <v-col>
+            <v-col class="mb-4">
               <h2>Technical skills</h2>
             </v-col>
           </v-row>
 
           <div class="skills_block">
             <div class="d-flex flex-column justify-center">
-              <p class="text-title bold mb-4">
+              <p class="text-title bold mb-12">
                 While working with web applications, I have worked with these technologies:
               </p>
             </div>
@@ -152,15 +152,38 @@
           </div>
         </div>
 
-        <v-card id="hobby" color="secondary">
-          <v-card-title class="headline ma-4">
-            Hobby
-          </v-card-title>
+        <div id="hobby" class="large-margin">
+          <v-row class="font-size-extra-large">
+            <v-col>
+              <h2>Hobby</h2>
+            </v-col>
+          </v-row>
 
-          <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae eum dignissimos, vel accusantium laboriosam natus corporis amet dolores adipisci? Dolor a iste dolorem excepturi, officia ea consectetur? Molestias, laborum?
-          </v-card-text>
-        </v-card>
+          <div class="hobby_block">
+            <div class="items">
+              <div class="items-col">
+                <h3 class="bold text-title">
+                  I independently develop automation devices <span class="icon-size">📟</span>, Smart home systems <span class="icon-size">🏠</span> and some extraordinary devices <span class="icon-size">🦾</span>.
+                </h3>
+                <h3 class="bold text-title">
+                  When developing, I use microcontrollers famalys: Atmel AVR (tinyAVR, megaAVR): RISC-V (ESP32/8266) and IoT
+                </h3>
+                <h3 class="bold text-title">
+                  I program microcontrollers on C++ (with AVR-libs), js (used the Johnny-Five framework, executed in Node.js), used the "Mongoose OS" framework for ESP MC).
+                </h3>
+              </div>
+
+              <div class="items-row">
+                <img width="100px" :src="require('~/assets/icons/smart-tv.png')">
+                <img width="100px" :src="require('~/assets/icons/smarthome.png')">
+                <img width="100px" :src="require('~/assets/icons/microcontroller.png')">
+                <img width="100px" :src="require('~/assets/icons/microprocessor.png')">
+                <img width="100px" :src="require('~/assets/icons/nodejs.png')">
+                <img width="100px" :src="require('~/assets/icons/c.png')">
+              </div>
+            </div>
+          </div>
+        </div>
 
         <v-card id="experience" color="secondary">
           <v-card-title class="headline ma-4">
@@ -385,7 +408,8 @@ export default {
   }
 
   &.xs {
-    .skills_block {
+    .skills_block,
+    .hobby_block {
       .items {
         flex-direction: column;
       }
@@ -412,7 +436,8 @@ export default {
     }
   }
 
-  .skills_block {
+  .skills_block,
+  .hobby_block {
     display: grid;
     grid-template-columns: 1fr;
 
@@ -426,6 +451,15 @@ export default {
         flex-direction: column;
         align-content: flex-start;
         gap: 25px;
+      }
+      .items-row {
+        display: flex;
+        flex-direction: row;
+        grid-gap: 25px;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
       }
 
       .item {
@@ -465,9 +499,11 @@ export default {
     font-size: 1.5em;
     font-style: italic;
   }
-
   .large-margin {
-    margin-bottom: 100px
+    margin-bottom: 100px;
+  }
+  .icon-size {
+    font-size: 1.7em;
   }
 }
 
