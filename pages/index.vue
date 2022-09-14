@@ -218,15 +218,34 @@
           </v-timeline>
         </div>
 
-        <v-card id="contacts" color="secondary">
-          <v-card-title class="headline ma-4">
-            Contacts
-          </v-card-title>
+        <div id="contacts" class="large-margin">
+          <v-row class="font-size-extra-large mb-8">
+            <v-col>
+              <h2>Contacts 📞</h2>
+            </v-col>
+          </v-row>
 
-          <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae eum dignissimos, vel accusantium laboriosam natus corporis amet dolores adipisci? Dolor a iste dolorem excepturi, officia ea consectetur? Molestias, laborum?
-          </v-card-text>
-        </v-card>
+          <div class="contacts_block">
+            <a class="item link" href="mailto:ban4ellog@gmail.com" target="_blank">
+              <img width="100px" :src="require('~/assets/email.png')">
+              <h3 class="bold text-title">
+                E-mail
+              </h3>
+            </a>
+            <a class="item link" href="https://github.com/ban4ello" target="_blank">
+              <img width="100px" :src="require('~/assets/github.png')">
+              <h3 class="bold text-title">
+                Github
+              </h3>
+            </a>
+            <a class="item link" href="https://www.linkedin.com/in/ivan-miroshnichenko-36b003190/" target="_blank">
+              <img width="100px" :src="require('~/assets/linkedin.png')">
+              <h3 class="bold text-title">
+                Linkedin
+              </h3>
+            </a>
+          </div>
+        </div>
       </div>
     </v-col>
   </v-row>
@@ -471,23 +490,26 @@ export default {
         flex-direction: column;
       }
     }
+    .contacts_block {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
     .font-size-extra-large {
       font-size: 1.5em;
     }
-
     .text-title {
       font-size: 1em;
     }
-
     .mobile-view {
       width: 150px;
       height: 150px;
     }
-
     .font-size-large {
       font-size: 0.8em;
     }
-
     .italic {
       font-size: 1em;
     }
@@ -526,6 +548,17 @@ export default {
         grid-template-columns: max-content 1fr;
         align-items: center;
       }
+    }
+  }
+
+  .contacts_block {
+    display: flex;
+    justify-content: space-between;
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
   }
 
@@ -629,5 +662,11 @@ export default {
 .v-enter {
   transform: translateX(20px);
   opacity: 0;
+}
+</style>
+<style lang="scss">
+.v-application .link {
+  color: #fff !important;
+  text-decoration: none;
 }
 </style>
