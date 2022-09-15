@@ -1,9 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
-// const base = process.env.NODE_ENV === 'gh-pages' ? '/resume/' : '/'
+const base = process.env.NODE_ENV === 'gh-pages' ? '/resume/' : '/'
 
 export default {
   router: {
-    base: '/resume/'
+    base
   },
   build: {
     publicPath: '/static/'
