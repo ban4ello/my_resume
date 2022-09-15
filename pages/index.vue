@@ -45,7 +45,7 @@
               </p>
             </div>
 
-            <div>
+            <div class="d-flex align-center">
               <img
                 width="400px"
                 height="400px"
@@ -466,6 +466,16 @@ export default {
 
   .large-margin {
     margin-bottom: 50px
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .typeWiriter h1 {
+    font-size: 2.5rem;
+  }
+
+  .action-btn {
+    font-size: 2em;
   }
 }
 
