@@ -40,7 +40,7 @@
               </h3>
 
               <p class="font-size-large">
-                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm {{ new Date().getFullYear() - 1994 }} and I'm a front-end developer
+                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm {{ calculatedAge }} and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
@@ -293,10 +293,18 @@ export default {
         },
         {
           color: 'info',
-          year: 'sep 2020 - current time',
+          year: 'sep 2020 - oct 2022',
           experience: {
             title: 'EventScouts',
             text: 'Decentralized app for searching events and activities using WEB 3.0'
+          }
+        },
+        {
+          color: 'info',
+          year: 'oct 2022 - current time',
+          experience: {
+            title: 'Manzana Group',
+            text: 'Management system for loyalty programs in retail, insurance, banking, healthcare and sports'
           }
         }
       ],
@@ -355,6 +363,10 @@ export default {
   },
 
   computed: {
+    calculatedAge () {
+      return new Date().getFullYear() - new Date('07.01.1994').getFullYear()
+    },
+
     screen () {
       return this.$vuetify.breakpoint.name
     },
