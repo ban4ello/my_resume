@@ -40,7 +40,7 @@
               </h3>
 
               <p class="font-size-large">
-                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm {{ calculatedAge }} and I'm a front-end developer
+                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm <span class="info--text bold">{{ myExactAge }}</span>&nbsp; years old and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
@@ -114,7 +114,7 @@
                 <div class="item">
                   <img width="120px" :src="require('~/assets/css3.png')">
                   <h3 class="bold text-subtitle">
-                    CSS, SASS, SCSS, LESS
+                    CSS, Vuetify, Bootstrap, Tailwind
                   </h3>
                 </div>
 
@@ -155,7 +155,7 @@
         <div id="experience" class="large-margin">
           <v-row class="font-size-extra-large mb-8">
             <v-col>
-              <h2>🛠️ Working experience</h2>
+              <h2>Working experience 🛠️</h2>
             </v-col>
           </v-row>
 
@@ -188,7 +188,7 @@
         <div id="hobby" class="large-margin">
           <v-row class="font-size-extra-large">
             <v-col>
-              <h2>Hobby 🎯</h2>
+              <h2>🎯 Hobby</h2>
             </v-col>
           </v-row>
 
@@ -207,8 +207,8 @@
               </div>
 
               <div class="items-row">
-                <img width="100px" :src="require('~/assets/smart-tv.png')">
-                <img width="100px" :src="require('~/assets/smarthome.png')">
+                <img width="100px" :src="require('~/assets/smart-home.png')">
+                <img width="100px" :src="require('~/assets/diy.png')">
                 <img width="100px" :src="require('~/assets/microcontroller.png')">
                 <img width="100px" :src="require('~/assets/microprocessor.png')">
                 <img width="100px" :src="require('~/assets/nodejs.png')">
@@ -266,6 +266,7 @@ export default {
 
   data () {
     return {
+      myExactAge: '29 years',
       experienceList: [
         {
           color: 'disabled',
@@ -378,9 +379,24 @@ export default {
 
   created () {
     this.timeoutId = setTimeout(this.typeText, this.newTextDelay + 200)
+    setInterval(this.ageCalculator, 1000)
   },
 
   methods: {
+    ageCalculator () {
+      const now = new Date()
+      const birthdate = new Date('1994-01-07') // yyyy-mm-dd
+      const diff = now.getTime() - birthdate.getTime()
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))
+      const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * (365.25 / 12)))
+      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.24 / 12))) / (1000 * 60 * 60 * 24))
+      const hours = now.getHours()
+      const minutes = now.getMinutes()
+      const seconds = now.getSeconds()
+
+      this.myExactAge = `${years} years, ${months} months, ${days} days, ${hours} hours : ${minutes} minutes : ${seconds} seconds`
+    },
+
     typeText () {
       if (this.charIndex < this.displayTextArray[this.displayTextArrayIndex].length) {
         if (!this.typeStatus) { this.typeStatus = true }
