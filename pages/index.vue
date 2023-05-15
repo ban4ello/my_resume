@@ -27,11 +27,7 @@
 
       <div id="main-content" class="main" :class="screen">
         <div class="summary_block large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col>
-              <h2>Summary 👨‍💻</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Summary 👨‍💻" />
 
           <div class="d-flex justify-center gap-50">
             <div id="summary" class="d-flex flex-column justify-center">
@@ -57,11 +53,7 @@
         </div>
 
         <div id="skills" class="large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col class="mb-4">
-              <h2>🤹 Technical skills</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="🤹 Technical skills" class="mb-8" />
 
           <div class="skills_block">
             <div class="d-flex flex-column justify-center">
@@ -70,94 +62,20 @@
               </p>
             </div>
 
-            <div class="items">
-              <div class="items-col">
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/html.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      HTML
-                    </h3>
-                    <span class="italic">its latest specifications.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/javascript.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      JavaScript
-                    </h3>
-                    <span class="italic">its latest specifications.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/react.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      React.js
-                    </h3>
-                    <span class="italic">used it, it scales well, I might use it again.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/blockchain.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      Blockchain
-                    </h3>
-                    <span class="italic">WEB3.0 is our future</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="items-col">
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/css3.png')">
-                  <h3 class="bold text-subtitle">
-                    CSS, Vuetify, Bootstrap, Tailwind
-                  </h3>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/vue.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      VUE.JS, VUEX, NUXT.JS
-                    </h3>
-                    <span class="italic">because it is the best framework ever</span>
-                  </div>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/webpack.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      Webpack
-                    </h3>
-                    <span class="italic">but need to move on the Vite.js</span>
-                  </div>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/git.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      GIT
-                    </h3>
-                    <span class="italic">where would we be without it in web development?</span>
-                  </div>
-                </div>
-              </div>
+            <div class="grid-col">
+              <TextImageBlock
+                v-for="(item, i) in technicalSkillsArray"
+                :key="i"
+                :title="item.title"
+                :subtitle="item.subtitle"
+                :image-name="item.imageName"
+              />
             </div>
           </div>
         </div>
 
         <div id="experience" class="large-margin">
-          <v-row class="font-size-extra-large mb-8">
-            <v-col>
-              <h2>Working experience 🛠️</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Working experience 🛠️" class="mb-8" />
 
           <v-timeline>
             <v-timeline-item
@@ -186,11 +104,7 @@
         </div>
 
         <div id="hobby" class="large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col>
-              <h2>🎯 Hobby</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="🎯 Hobby" class="mb-8" />
 
           <div class="hobby_block">
             <div class="items large-margin">
@@ -228,11 +142,7 @@
         </div>
 
         <div id="contacts" class="large-margin">
-          <v-row class="font-size-extra-large mb-8">
-            <v-col>
-              <h2>Contacts 📞</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Contacts 📞" class="mb-8" />
 
           <div class="contacts_block">
             <a class="item link" href="mailto:ban4ellog@gmail.com" target="_blank">
@@ -267,6 +177,48 @@ export default {
   data () {
     return {
       myExactAge: '29 years',
+      technicalSkillsArray: [
+        {
+          imageName: 'javascript',
+          title: 'JavaScript',
+          subtitle: 'its latest specifications'
+        },
+        {
+          imageName: 'html',
+          title: 'HTML',
+          subtitle: 'its latest specifications'
+        },
+        {
+          imageName: 'css3',
+          title: 'CSS, Vuetify, Bootstrap, Tailwind',
+          subtitle: ''
+        },
+        {
+          imageName: 'vue',
+          title: 'VUE.JS, VUEX, NUXT.JS',
+          subtitle: 'because it is the best framework ever'
+        },
+        {
+          imageName: 'react',
+          title: 'React.js',
+          subtitle: 'used it, it scales well, I might use it again'
+        },
+        {
+          imageName: 'blockchain',
+          title: 'Blockchain',
+          subtitle: 'WEB3.0 is our future'
+        },
+        {
+          imageName: 'webpack',
+          title: 'Webpack',
+          subtitle: 'but need to move on the Vite.js'
+        },
+        {
+          imageName: 'git',
+          title: 'GIT',
+          subtitle: 'where would we be without it in web development?'
+        }
+      ],
       experienceList: [
         {
           color: 'disabled',
@@ -444,6 +396,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.grid-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
 .typeWiriter {
   width: 100%;
   height: calc(100vh);
@@ -504,6 +463,10 @@ export default {
 
   .action-btn {
     font-size: 2em;
+  }
+
+  .grid-col {
+    grid-template-columns: 1fr;
   }
 }
 
