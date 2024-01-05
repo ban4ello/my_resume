@@ -109,7 +109,8 @@ export default {
 }
 
 .v-application {
-  background-color: var(--v-primary-base)
+  background: rgb(17,125,76);
+  background: radial-gradient(circle, rgba(17,125,76,1) 15%, rgba(2,0,36,1) 55%, rgba(0,110,133,1) 100%);
 }
 </style>
 <style lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="item">
-    <img :width="imageWidth" :src="require(`~/assets/${imageName}.png`)">
+    <img :width="imageWidth" :src="require(`~/assets/icons/${imageName}.png`)">
     <div>
       <h3 class="bold text-subtitle">
         {{ title }}
@@ -38,6 +38,12 @@ export default {
   gap: 15px;
   grid-template-columns: max-content 1fr;
   align-items: center;
+  transition: 2s;
+}
+
+img {
+  max-height: 120px;
+  object-fit: contain;
 }
 .text-subtitle {
   font-size: 1.5em;
