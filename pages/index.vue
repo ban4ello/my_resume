@@ -80,6 +80,7 @@
               <div v-if="showExplode" style="position: absolute; top: -3%; left: 20%;">
                 <img width="600px" :src="require('~/assets/images/explode.gif')">
               </div>
+
               <TextImageBlock
                 v-for="(item, i) in technicalSkillsArray"
                 ref="skills_block_items"
