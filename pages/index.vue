@@ -36,7 +36,7 @@
               </h3>
 
               <p class="font-size-large">
-                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm <span class="info--text bold">{{ myExactAge }}</span>&nbsp; years old and I'm a front-end developer
+                <span class="emoji wave icon-size" />&nbsp; I'm <span class="info--text bold">{{ myExactAge }}</span>&nbsp; years old and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
@@ -56,19 +56,39 @@
           <TitleBlock name="🤹 Technical skills" class="mb-8" />
 
           <div class="skills_block">
-            <div class="d-flex flex-column justify-center">
+            <div class="d-flex justify-center flex-column align-center mb-8">
               <p class="text-title bold mb-12">
                 While working with web applications, I have worked with these technologies:
               </p>
+
+              <ShadowRoundBtn
+                v-if="!showActivateBtn && (screen !== 'sm' && screen !== 'xs')"
+                btn-text="Click for fun"
+                @click="activateBomb()"
+              />
+              <ShadowRoundBtn
+                v-if="showActivateBtn && showResetBtn && (screen !== 'sm' && screen !== 'xs')"
+                btn-text="Reset"
+                @click="reset()"
+              />
             </div>
 
-            <div class="grid-col">
+            <div ref="skills_block_parent" class="grid-col">
+              <div v-if="showBomb && !showExplode" class="bomb">
+                <img width="200px" :src="require('~/assets/images/bomb.gif')">
+              </div>
+              <div v-if="showExplode" style="position: absolute; top: -3%; left: 20%;">
+                <img width="600px" :src="require('~/assets/images/explode.gif')">
+              </div>
+
               <TextImageBlock
                 v-for="(item, i) in technicalSkillsArray"
+                ref="skills_block_items"
                 :key="i"
                 :title="item.title"
                 :subtitle="item.subtitle"
                 :image-name="item.imageName"
+                class=""
               />
             </div>
           </div>
@@ -121,12 +141,12 @@
               </div>
 
               <div class="items-row">
-                <img width="100px" :src="require('~/assets/smart-home.png')">
-                <img width="100px" :src="require('~/assets/diy.png')">
-                <img width="100px" :src="require('~/assets/microcontroller.png')">
-                <img width="100px" :src="require('~/assets/microprocessor.png')">
-                <img width="100px" :src="require('~/assets/nodejs.png')">
-                <img width="100px" :src="require('~/assets/c.png')">
+                <img width="100px" :src="require('~/assets/icons/smart-home.png')">
+                <img width="100px" :src="require('~/assets/icons/diy.png')">
+                <img width="100px" :src="require('~/assets/icons/microcontroller.png')">
+                <img width="100px" :src="require('~/assets/icons/microprocessor.png')">
+                <img width="100px" :src="require('~/assets/icons/nodejs.png')">
+                <img width="100px" :src="require('~/assets/icons/c.png')">
               </div>
             </div>
 
@@ -146,19 +166,19 @@
 
           <div class="contacts_block">
             <a class="item link" href="mailto:ban4ellog@gmail.com" target="_blank">
-              <img width="100px" :src="require('~/assets/email.png')">
+              <img width="100px" :src="require('~/assets/icons/email.png')">
               <h3 class="bold text-title">
                 E-mail
               </h3>
             </a>
             <a class="item link" href="https://github.com/ban4ello" target="_blank">
-              <img width="100px" :src="require('~/assets/github.png')">
+              <img width="100px" :src="require('~/assets/icons/github.png')">
               <h3 class="bold text-title">
                 Github
               </h3>
             </a>
             <a class="item link" href="https://www.linkedin.com/in/ivan-miroshnichenko-36b003190/" target="_blank">
-              <img width="100px" :src="require('~/assets/linkedin.png')">
+              <img width="100px" :src="require('~/assets/icons/linkedin.png')">
               <h3 class="bold text-title">
                 Linkedin
               </h3>
@@ -176,6 +196,10 @@ export default {
 
   data () {
     return {
+      showBomb: false,
+      showExplode: false,
+      showActivateBtn: false,
+      showResetBtn: false,
       myExactAge: '29 years',
       technicalSkillsArray: [
         {
@@ -191,7 +215,7 @@ export default {
         {
           imageName: 'css3',
           title: 'CSS, Vuetify, Bootstrap, Tailwind',
-          subtitle: ''
+          subtitle: 'SASS, LESS preprocessor'
         },
         {
           imageName: 'vue',
@@ -199,19 +223,24 @@ export default {
           subtitle: 'because it is the best framework ever'
         },
         {
-          imageName: 'react',
-          title: 'React.js',
-          subtitle: 'used it, it scales well, I might use it again'
+          imageName: 'api',
+          title: 'REST API, gRPC, Swagger',
+          subtitle: ''
         },
         {
-          imageName: 'blockchain',
-          title: 'Blockchain',
-          subtitle: 'WEB3.0 is our future'
+          imageName: 'jest',
+          title: 'Unit, e2e testing',
+          subtitle: 'Jest, Cypress'
         },
         {
           imageName: 'webpack',
-          title: 'Webpack',
-          subtitle: 'but need to move on the Vite.js'
+          title: 'Webpack, Vite.js',
+          subtitle: ''
+        },
+        {
+          imageName: 'agile',
+          title: 'Agile methodology (SCRUM)',
+          subtitle: 'Jira, Trello, Figma'
         },
         {
           imageName: 'git',
@@ -335,6 +364,113 @@ export default {
   },
 
   methods: {
+    getRandomInt (min, max) {
+      min = Math.ceil(min)
+      max = Math.floor(max)
+
+      return Math.floor(Math.random() * (max - min) + min)
+    },
+
+    activateBomb (event) {
+      this.showActivateBtn = true
+      this.showBomb = true
+      const coordinates = []
+      const parentCoord = this.$refs.skills_block_parent.getBoundingClientRect()
+
+      this.$refs.skills_block_parent.style.width = parentCoord.width + 'px'
+      this.$refs.skills_block_parent.style.height = parentCoord.height + 'px'
+
+      this.$refs.skills_block_items.forEach((item, i) => {
+        coordinates.push({ top: item.$el.offsetTop + 'px', left: item.$el.offsetLeft + 'px' })
+      })
+
+      const sectors = {
+        a: {
+          x: { start: 0, end: Math.round(parentCoord.width / 2) },
+          y: { start: 0, end: Math.round(parentCoord.height / 2) }
+        },
+        b: {
+          x: { start: Math.round(parentCoord.width / 2), end: parentCoord.width },
+          y: { start: 0, end: Math.round(parentCoord.height / 2) }
+        },
+        c: {
+          x: { start: 0, end: Math.round(parentCoord.width / 2) },
+          y: { start: Math.round(parentCoord.height / 2), end: parentCoord.height }
+        },
+        d: {
+          x: { start: Math.round(parentCoord.width / 2), end: parentCoord.width },
+          y: { start: Math.round(parentCoord.height / 2), end: parentCoord.height }
+        }
+      }
+
+      this.$refs.skills_block_items.forEach((item, i) => {
+        item.$el.style.position = 'absolute'
+        item.$el.style.transition = '0.4s'
+        item.$el.style.top = coordinates[i].top
+        item.$el.style.left = coordinates[i].left
+      })
+
+      setTimeout(() => {
+        this.showExplode = true
+      }, 2400)
+
+      setTimeout(() => {
+        this.$refs.skills_block_items.forEach((item, i) => {
+          const clientX = parseInt(item.$el.style.left)
+          const clientY = parseInt(item.$el.style.top)
+
+          Object.keys(sectors).forEach((sectorName) => {
+            if (
+              (clientX >= sectors[sectorName].x.start && clientX <= sectors[sectorName].x.end) &&
+              (clientY >= sectors[sectorName].y.start && clientY <= sectors[sectorName].y.end)
+            ) {
+              item.sector = sectorName
+            }
+          })
+
+          if (item.sector === 'a') {
+            item.$el.style.left = (clientX - sectors[item.sector].x.start - clientY - this.getRandomInt(50, 150)) + 'px'
+            item.$el.style.top = (clientY - sectors[item.sector].y.start - this.getRandomInt(50, 150)) + 'px'
+          }
+
+          if (item.sector === 'b') {
+            item.$el.style.left = clientX + this.getRandomInt(100, 500) + 'px'
+            item.$el.style.top = sectors[item.sector].y.start - this.getRandomInt(0, 150) + 'px'
+          }
+
+          if (item.sector === 'c') {
+            item.$el.style.left = clientX - this.getRandomInt(0, 300) + 'px'
+            item.$el.style.top = clientY + this.getRandomInt(100, 400) + 'px'
+          }
+
+          if (item.sector === 'd') {
+            item.$el.style.left = clientX + this.getRandomInt(100, 400) + 'px'
+            item.$el.style.top = clientY + this.getRandomInt(10, 300) + 'px'
+          }
+
+          item.$el.style.transform = `rotate(${this.getRandomInt(-50, 50)}deg)`
+        })
+
+        this.showBomb = false
+        this.showResetBtn = true
+      }, 2500)
+
+      setTimeout(() => {
+        this.showExplode = false
+      }, 3000)
+    },
+
+    reset () {
+      this.$refs.skills_block_items.forEach((item, i) => {
+        item.$el.style.top = '0px'
+        item.$el.style.left = '0px'
+        item.$el.style.transform = 'rotate(0deg)'
+        item.$el.style.position = 'inherit'
+      })
+
+      this.showResetBtn = false
+    },
+
     ageCalculator () {
       const now = new Date()
       const birthdate = new Date('1994-01-07') // yyyy-mm-dd
@@ -402,6 +538,7 @@ export default {
   grid-gap: 25px;
   margin: 0 auto;
   margin-bottom: 20px;
+  position: relative;
 }
 .typeWiriter {
   width: 100%;
@@ -673,7 +810,36 @@ export default {
   transform: translateX(20px);
   opacity: 0;
 }
+
+.emoji::after {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.wave::after {
+  content: '✋';
+  --emoji: '👋';
+  animation-name: twoFrames;
+  animation-duration: 0.8s;
+}
+
+@keyframes twoFrames {
+  50% {
+    content: var(--emoji);
+  }
+}
+.bomb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
 </style>
+
 <style lang="scss">
 .v-application .link {
   color: #fff !important;
