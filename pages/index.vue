@@ -200,7 +200,7 @@ export default {
       showExplode: false,
       showActivateBtn: false,
       showResetBtn: false,
-      myExactAge: '29 years',
+      myExactAge: '30 years',
       technicalSkillsArray: [
         {
           imageName: 'javascript',
@@ -473,16 +473,52 @@ export default {
 
     ageCalculator () {
       const now = new Date()
-      const birthdate = new Date('1994-01-07') // yyyy-mm-dd
-      const diff = now.getTime() - birthdate.getTime()
-      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))
-      const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * (365.25 / 12)))
-      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.24 / 12))) / (1000 * 60 * 60 * 24))
-      const hours = now.getHours()
-      const minutes = now.getMinutes()
-      const seconds = now.getSeconds()
+      const exactBirthDate = '01/07/1994/07:10' // mm-dd-yyyy-mm-ss
+      const months = exactBirthDate.slice(0, 2)
+      const days = Number(exactBirthDate.slice(3, 5))
+      const years = exactBirthDate.slice(6, 10)
+      const exactTime = Number(exactBirthDate.slice(11, 13))
+      const exactMinutes = Number(exactBirthDate.slice(14, 16))
 
-      this.myExactAge = `${years} years, ${months} months, ${days} days, ${hours} hours : ${minutes} minutes : ${seconds} seconds`
+      const birthDate = new Date(`${months}/${days + 1}/${years}`)
+      const hours = now.getHours() - exactTime
+      const minutes = now.getMinutes() - exactMinutes
+      const seconds = now.getSeconds()
+      const endingDate = new Date().toISOString().substr(0, 10) // YYYY-MM-DD
+
+      let startDate = new Date(birthDate.toISOString().substr(0, 10))
+      let endDate = new Date(endingDate)
+
+      if (startDate > endDate) {
+        const swap = startDate
+        startDate = endDate
+        endDate = swap
+      }
+
+      const startYear = startDate.getFullYear()
+      const february = (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0 ? 29 : 28
+      const daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+      let yearDiff = endDate.getFullYear() - startYear
+      let monthDiff = endDate.getMonth() - startDate.getMonth()
+      let dayDiff = endDate.getDate() - startDate.getDate()
+
+      if (monthDiff < 0) {
+        yearDiff--
+        monthDiff += 12
+      }
+
+      if (dayDiff < 0) {
+        if (monthDiff > 0) {
+          monthDiff--
+        } else {
+          yearDiff--
+          monthDiff = 11
+        }
+        dayDiff += daysInMonth[startDate.getMonth()]
+      }
+
+      this.myExactAge = `${yearDiff} years, ${monthDiff} months, ${dayDiff} days, ${hours < 0 ? 0 : hours} hours : ${minutes < 0 ? 0 : minutes} minutes : ${seconds} seconds`
     },
 
     typeText () {
