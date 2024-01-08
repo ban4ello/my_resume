@@ -115,8 +115,19 @@
                   {{ item.experience.title }}
                 </span>
 
-                <div class="font-size-large">
+                <p class="font-size-large">
                   {{ item.experience.text }}
+                </p>
+
+                <div v-if="item.experience.responsibilities.length" class="font-size-large">
+                  <p class="info--text">
+                    Responsibilities:
+                  </p>
+                  <ul class="responsibilities-list">
+                    <li v-for="(item, i) in item.experience.responsibilities" :key="i">
+                      {{ item }}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </v-timeline-item>
@@ -254,7 +265,8 @@ export default {
           year: 'mid 2018 - 2019',
           experience: {
             title: 'Self-study of web technologies',
-            text: ''
+            text: '',
+            responsibilities: []
           }
         },
         {
@@ -262,7 +274,12 @@ export default {
           year: '2019 - 2020',
           experience: {
             title: 'WOK-email',
-            text: 'App for creating responsive HTML-email'
+            text: 'App for creating responsive HTML-email',
+            responsibilities: [
+              'development of app interface using Vue.js and Element.io by Figma layouts',
+              'work on creating an internal library based on MJML',
+              'e2e testing with Cypress.io, unit testing with Jest'
+            ]
           }
         },
         {
@@ -270,7 +287,11 @@ export default {
           year: '2020 - sep 2020',
           experience: {
             title: '[noname] startup',
-            text: 'Application for learning foreign languages'
+            text: 'Application for learning foreign languages',
+            responsibilities: [
+              'development of an admin panel using Vue.js and Vuetify UI',
+              'bug fixing, project support'
+            ]
           }
         },
         {
@@ -278,7 +299,29 @@ export default {
           year: 'sep 2020 - oct 2022',
           experience: {
             title: 'EventScouts',
-            text: 'Decentralized app for searching events and activities using WEB 3.0'
+            text: 'Decentralized app for searching events and activities using WEB 3.0',
+            responsibilities: [
+              'development of app interface using Vue.js and Vuetify UI by Figma layouts',
+              'development of a decentralized app (according to the mobile first strategy)',
+              'optimization, implementation of new functions on Vue.js (development using the Scrum methodology)',
+              'evaluation and execution of threaded tasks',
+              'interaction with backend (REST API)'
+            ]
+          }
+        },
+        {
+          color: 'info',
+          year: 'nov 2022 - sep 2023',
+          experience: {
+            title: 'Altessa Solutions',
+            text: 'Web, mobile & desktop app development, UI/UX design experts - professional solutions of your business',
+            responsibilities: [
+              'development of app interface using Vue.js by Figma layouts',
+              'optimization, implementation of new functions on Vue.js (Nuxt.js)',
+              'development using the Scrum methodology',
+              'evaluation and execution of threaded tasks',
+              'interaction with backend (gRPC API)'
+            ]
           }
         },
         {
@@ -286,7 +329,14 @@ export default {
           year: 'oct 2022 - current time',
           experience: {
             title: 'Manzana Group',
-            text: 'Management system for loyalty programs in retail, insurance, banking, healthcare and sports'
+            text: 'Management system for loyalty programs in retail, insurance, banking, healthcare and sports',
+            responsibilities: [
+              'development of app interface using Vue.js',
+              'optimization, implementation of new functions',
+              'development of internal UI library components',
+              'code review',
+              'interaction with a large team of developers: backend (REST API), business analytics, QA engineers'
+            ]
           }
         }
       ],
@@ -872,6 +922,15 @@ export default {
   position: absolute;
   top: 30%;
   left: 40%;
+}
+
+.responsibilities-list {
+  font-style: italic;
+
+  li {
+    list-style-type: '👉';
+    padding-left: 2ch;
+  }
 }
 
 </style>
