@@ -72,7 +72,18 @@ export default {
         offset: -200
       }
     ],
-    '@nuxtjs/svg-sprite'
+    '@nuxtjs/svg-sprite',
+    [
+      '@rkaliev/nuxtjs-yandex-metrika',
+      {
+        id: '96067791',
+        webvisor: true
+        // clickmap: boolean,
+        // debug: boolean,
+        // noJS: boolean,
+        // disabled: boolean
+      }
+    ]
   ],
 
   svgSprite: {

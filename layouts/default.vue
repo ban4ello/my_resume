@@ -77,6 +77,14 @@ export default {
     }
   },
 
+  mounted () {
+    this.$yandexMetrika.reachGoal('my-goal')
+
+    // this.$yandexMetrika.setUserParams({
+    //   userId: '12345'
+    // })
+  },
+
   methods: {
     touchAll () {
       const value = this.$vuetify.theme.themes[this.theme]
