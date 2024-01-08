@@ -26,7 +26,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, black, transparent);
+  background: linear-gradient(45deg, black, #106c47);
   border: 1px #000 solid;
   border-radius: 25px;
   box-shadow: 4px 6px 11px;
