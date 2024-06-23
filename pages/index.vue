@@ -27,11 +27,7 @@
 
       <div id="main-content" class="main" :class="screen">
         <div class="summary_block large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col>
-              <h2>Summary 👨‍💻</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Summary 👨‍💻" />
 
           <div class="d-flex justify-center gap-50">
             <div id="summary" class="d-flex flex-column justify-center">
@@ -40,7 +36,7 @@
               </h3>
 
               <p class="font-size-large">
-                <span class="icon-size">&#128075;</span>&nbsp; My name is Ivan, I'm <span class="info--text bold">{{ myExactAge }}</span>&nbsp; years old and I'm a front-end developer
+                <span class="emoji wave icon-size" />&nbsp; I'm <span class="info--text bold">{{ myExactAge }}</span>&nbsp; years old and I'm a front-end developer
                 with a taste for knowledge, work and study, with a strong sense of aesthetics and teamwork
               </p>
             </div>
@@ -57,107 +53,49 @@
         </div>
 
         <div id="skills" class="large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col class="mb-4">
-              <h2>🤹 Technical skills</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="🤹 Technical skills" class="mb-8" />
 
           <div class="skills_block">
-            <div class="d-flex flex-column justify-center">
+            <div class="d-flex justify-center flex-column align-center mb-8">
               <p class="text-title bold mb-12">
                 While working with web applications, I have worked with these technologies:
               </p>
+
+              <ShadowRoundBtn
+                v-if="!showActivateBtn && (screen !== 'sm' && screen !== 'xs')"
+                btn-text="Click for fun"
+                @click="activateBomb()"
+              />
+              <ShadowRoundBtn
+                v-if="showActivateBtn && showResetBtn && (screen !== 'sm' && screen !== 'xs')"
+                btn-text="Reset"
+                @click="reset()"
+              />
             </div>
 
-            <div class="items">
-              <div class="items-col">
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/html.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      HTML
-                    </h3>
-                    <span class="italic">its latest specifications.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/javascript.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      JavaScript
-                    </h3>
-                    <span class="italic">its latest specifications.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/react.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      React.js
-                    </h3>
-                    <span class="italic">used it, it scales well, I might use it again.</span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/blockchain.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      Blockchain
-                    </h3>
-                    <span class="italic">WEB3.0 is our future</span>
-                  </div>
-                </div>
+            <div ref="skills_block_parent" class="grid-col">
+              <div v-if="showBomb && !showExplode" class="bomb">
+                <img width="200px" :src="require('~/assets/images/bomb.gif')">
+              </div>
+              <div v-if="showExplode" style="position: absolute; top: -3%; left: 20%;">
+                <img width="600px" :src="require('~/assets/images/explode.gif')">
               </div>
 
-              <div class="items-col">
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/css3.png')">
-                  <h3 class="bold text-subtitle">
-                    CSS, Vuetify, Bootstrap, Tailwind
-                  </h3>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/vue.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      VUE.JS, VUEX, NUXT.JS
-                    </h3>
-                    <span class="italic">because it is the best framework ever</span>
-                  </div>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/webpack.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      Webpack
-                    </h3>
-                    <span class="italic">but need to move on the Vite.js</span>
-                  </div>
-                </div>
-
-                <div class="item">
-                  <img width="120px" :src="require('~/assets/git.png')">
-                  <div>
-                    <h3 class="bold text-subtitle">
-                      GIT
-                    </h3>
-                    <span class="italic">where would we be without it in web development?</span>
-                  </div>
-                </div>
-              </div>
+              <TextImageBlock
+                v-for="(item, i) in technicalSkillsArray"
+                ref="skills_block_items"
+                :key="i"
+                :title="item.title"
+                :subtitle="item.subtitle"
+                :image-name="item.imageName"
+                class=""
+              />
             </div>
           </div>
         </div>
 
         <div id="experience" class="large-margin">
-          <v-row class="font-size-extra-large mb-8">
-            <v-col>
-              <h2>Working experience 🛠️</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Working experience 🛠️" class="mb-8" />
 
           <v-timeline>
             <v-timeline-item
@@ -177,8 +115,19 @@
                   {{ item.experience.title }}
                 </span>
 
-                <div class="font-size-large">
+                <p class="font-size-large">
                   {{ item.experience.text }}
+                </p>
+
+                <div v-if="item.experience.responsibilities.length" class="font-size-large">
+                  <p class="info--text">
+                    Responsibilities:
+                  </p>
+                  <ul class="responsibilities-list">
+                    <li v-for="(item, i) in item.experience.responsibilities" :key="i">
+                      {{ item }}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </v-timeline-item>
@@ -186,11 +135,7 @@
         </div>
 
         <div id="hobby" class="large-margin">
-          <v-row class="font-size-extra-large">
-            <v-col>
-              <h2>🎯 Hobby</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="🎯 Hobby" class="mb-8" />
 
           <div class="hobby_block">
             <div class="items large-margin">
@@ -207,12 +152,12 @@
               </div>
 
               <div class="items-row">
-                <img width="100px" :src="require('~/assets/smart-home.png')">
-                <img width="100px" :src="require('~/assets/diy.png')">
-                <img width="100px" :src="require('~/assets/microcontroller.png')">
-                <img width="100px" :src="require('~/assets/microprocessor.png')">
-                <img width="100px" :src="require('~/assets/nodejs.png')">
-                <img width="100px" :src="require('~/assets/c.png')">
+                <img width="100px" :src="require('~/assets/icons/smart-home.png')">
+                <img width="100px" :src="require('~/assets/icons/diy.png')">
+                <img width="100px" :src="require('~/assets/icons/microcontroller.png')">
+                <img width="100px" :src="require('~/assets/icons/microprocessor.png')">
+                <img width="100px" :src="require('~/assets/icons/nodejs.png')">
+                <img width="100px" :src="require('~/assets/icons/c.png')">
               </div>
             </div>
 
@@ -228,27 +173,23 @@
         </div>
 
         <div id="contacts" class="large-margin">
-          <v-row class="font-size-extra-large mb-8">
-            <v-col>
-              <h2>Contacts 📞</h2>
-            </v-col>
-          </v-row>
+          <TitleBlock name="Contacts 📞" class="mb-8" />
 
           <div class="contacts_block">
             <a class="item link" href="mailto:ban4ellog@gmail.com" target="_blank">
-              <img width="100px" :src="require('~/assets/email.png')">
+              <img width="100px" :src="require('~/assets/icons/email.png')">
               <h3 class="bold text-title">
                 E-mail
               </h3>
             </a>
             <a class="item link" href="https://github.com/ban4ello" target="_blank">
-              <img width="100px" :src="require('~/assets/github.png')">
+              <img width="100px" :src="require('~/assets/icons/github.png')">
               <h3 class="bold text-title">
                 Github
               </h3>
             </a>
             <a class="item link" href="https://www.linkedin.com/in/ivan-miroshnichenko-36b003190/" target="_blank">
-              <img width="100px" :src="require('~/assets/linkedin.png')">
+              <img width="100px" :src="require('~/assets/icons/linkedin.png')">
               <h3 class="bold text-title">
                 Linkedin
               </h3>
@@ -266,14 +207,66 @@ export default {
 
   data () {
     return {
-      myExactAge: '29 years',
+      showBomb: false,
+      showExplode: false,
+      showActivateBtn: false,
+      showResetBtn: false,
+      myExactAge: '30 years',
+      technicalSkillsArray: [
+        {
+          imageName: 'javascript',
+          title: 'JavaScript',
+          subtitle: 'its latest specifications'
+        },
+        {
+          imageName: 'html',
+          title: 'HTML',
+          subtitle: 'its latest specifications'
+        },
+        {
+          imageName: 'css3',
+          title: 'CSS, Vuetify, Bootstrap, Tailwind',
+          subtitle: 'SASS, LESS preprocessor'
+        },
+        {
+          imageName: 'vue',
+          title: 'VUE.JS, VUEX, NUXT.JS',
+          subtitle: 'because it is the best framework ever'
+        },
+        {
+          imageName: 'api',
+          title: 'REST API, gRPC, Swagger',
+          subtitle: ''
+        },
+        {
+          imageName: 'jest',
+          title: 'Unit, e2e testing',
+          subtitle: 'Jest, Cypress'
+        },
+        {
+          imageName: 'webpack',
+          title: 'Webpack, Vite.js',
+          subtitle: ''
+        },
+        {
+          imageName: 'agile',
+          title: 'Agile methodology (SCRUM)',
+          subtitle: 'Jira, Trello, Figma'
+        },
+        {
+          imageName: 'git',
+          title: 'GIT',
+          subtitle: 'where would we be without it in web development?'
+        }
+      ],
       experienceList: [
         {
           color: 'disabled',
           year: 'mid 2018 - 2019',
           experience: {
             title: 'Self-study of web technologies',
-            text: ''
+            text: '',
+            responsibilities: []
           }
         },
         {
@@ -281,7 +274,12 @@ export default {
           year: '2019 - 2020',
           experience: {
             title: 'WOK-email',
-            text: 'App for creating responsive HTML-email'
+            text: 'App for creating responsive HTML-email',
+            responsibilities: [
+              'development of app interface using Vue.js and Element.io by Figma layouts',
+              'work on creating an internal library based on MJML',
+              'e2e testing with Cypress.io, unit testing with Jest'
+            ]
           }
         },
         {
@@ -289,7 +287,11 @@ export default {
           year: '2020 - sep 2020',
           experience: {
             title: '[noname] startup',
-            text: 'Application for learning foreign languages'
+            text: 'Application for learning foreign languages',
+            responsibilities: [
+              'development of an admin panel using Vue.js and Vuetify UI',
+              'bug fixing, project support'
+            ]
           }
         },
         {
@@ -297,7 +299,29 @@ export default {
           year: 'sep 2020 - oct 2022',
           experience: {
             title: 'EventScouts',
-            text: 'Decentralized app for searching events and activities using WEB 3.0'
+            text: 'Decentralized app for searching events and activities using WEB 3.0',
+            responsibilities: [
+              'development of app interface using Vue.js and Vuetify UI by Figma layouts',
+              'development of a decentralized app (according to the mobile first strategy)',
+              'optimization, implementation of new functions on Vue.js (development using the Scrum methodology)',
+              'evaluation and execution of threaded tasks',
+              'interaction with backend (REST API)'
+            ]
+          }
+        },
+        {
+          color: 'info',
+          year: 'nov 2022 - sep 2023',
+          experience: {
+            title: 'Altessa Solutions',
+            text: 'Web, mobile & desktop app development, UI/UX design experts - professional solutions of your business',
+            responsibilities: [
+              'development of app interface using Vue.js by Figma layouts',
+              'optimization, implementation of new functions on Vue.js (Nuxt.js)',
+              'development using the Scrum methodology',
+              'evaluation and execution of threaded tasks',
+              'interaction with backend (gRPC API)'
+            ]
           }
         },
         {
@@ -305,7 +329,14 @@ export default {
           year: 'oct 2022 - current time',
           experience: {
             title: 'Manzana Group',
-            text: 'Management system for loyalty programs in retail, insurance, banking, healthcare and sports'
+            text: 'Management system for loyalty programs in retail, insurance, banking, healthcare and sports',
+            responsibilities: [
+              'development of app interface using Vue.js',
+              'optimization, implementation of new functions',
+              'development of internal UI library components',
+              'code review',
+              'interaction with a large team of developers: backend (REST API), business analytics, QA engineers'
+            ]
           }
         }
       ],
@@ -383,18 +414,161 @@ export default {
   },
 
   methods: {
+    getRandomInt (min, max) {
+      min = Math.ceil(min)
+      max = Math.floor(max)
+
+      return Math.floor(Math.random() * (max - min) + min)
+    },
+
+    activateBomb (event) {
+      this.showActivateBtn = true
+      this.showBomb = true
+      const coordinates = []
+      const parentCoord = this.$refs.skills_block_parent.getBoundingClientRect()
+
+      this.$refs.skills_block_parent.style.width = parentCoord.width + 'px'
+      this.$refs.skills_block_parent.style.height = parentCoord.height + 'px'
+
+      this.$refs.skills_block_items.forEach((item, i) => {
+        coordinates.push({ top: item.$el.offsetTop + 'px', left: item.$el.offsetLeft + 'px' })
+      })
+
+      const sectors = {
+        a: {
+          x: { start: 0, end: Math.round(parentCoord.width / 2) },
+          y: { start: 0, end: Math.round(parentCoord.height / 2) }
+        },
+        b: {
+          x: { start: Math.round(parentCoord.width / 2), end: parentCoord.width },
+          y: { start: 0, end: Math.round(parentCoord.height / 2) }
+        },
+        c: {
+          x: { start: 0, end: Math.round(parentCoord.width / 2) },
+          y: { start: Math.round(parentCoord.height / 2), end: parentCoord.height }
+        },
+        d: {
+          x: { start: Math.round(parentCoord.width / 2), end: parentCoord.width },
+          y: { start: Math.round(parentCoord.height / 2), end: parentCoord.height }
+        }
+      }
+
+      this.$refs.skills_block_items.forEach((item, i) => {
+        item.$el.style.position = 'absolute'
+        item.$el.style.transition = '0.4s'
+        item.$el.style.top = coordinates[i].top
+        item.$el.style.left = coordinates[i].left
+      })
+
+      setTimeout(() => {
+        this.showExplode = true
+      }, 2400)
+
+      setTimeout(() => {
+        this.$refs.skills_block_items.forEach((item, i) => {
+          const clientX = parseInt(item.$el.style.left)
+          const clientY = parseInt(item.$el.style.top)
+
+          Object.keys(sectors).forEach((sectorName) => {
+            if (
+              (clientX >= sectors[sectorName].x.start && clientX <= sectors[sectorName].x.end) &&
+              (clientY >= sectors[sectorName].y.start && clientY <= sectors[sectorName].y.end)
+            ) {
+              item.sector = sectorName
+            }
+          })
+
+          if (item.sector === 'a') {
+            item.$el.style.left = (clientX - sectors[item.sector].x.start - clientY - this.getRandomInt(50, 150)) + 'px'
+            item.$el.style.top = (clientY - sectors[item.sector].y.start - this.getRandomInt(50, 150)) + 'px'
+          }
+
+          if (item.sector === 'b') {
+            item.$el.style.left = clientX + this.getRandomInt(100, 500) + 'px'
+            item.$el.style.top = sectors[item.sector].y.start - this.getRandomInt(0, 150) + 'px'
+          }
+
+          if (item.sector === 'c') {
+            item.$el.style.left = clientX - this.getRandomInt(0, 300) + 'px'
+            item.$el.style.top = clientY + this.getRandomInt(100, 400) + 'px'
+          }
+
+          if (item.sector === 'd') {
+            item.$el.style.left = clientX + this.getRandomInt(100, 400) + 'px'
+            item.$el.style.top = clientY + this.getRandomInt(10, 300) + 'px'
+          }
+
+          item.$el.style.transform = `rotate(${this.getRandomInt(-50, 50)}deg)`
+        })
+
+        this.showBomb = false
+        this.showResetBtn = true
+      }, 2500)
+
+      setTimeout(() => {
+        this.showExplode = false
+      }, 3000)
+    },
+
+    reset () {
+      this.$refs.skills_block_items.forEach((item, i) => {
+        item.$el.style.top = '0px'
+        item.$el.style.left = '0px'
+        item.$el.style.transform = 'rotate(0deg)'
+        item.$el.style.position = 'inherit'
+      })
+
+      this.showResetBtn = false
+    },
+
     ageCalculator () {
       const now = new Date()
-      const birthdate = new Date('1994-01-07') // yyyy-mm-dd
-      const diff = now.getTime() - birthdate.getTime()
-      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))
-      const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * (365.25 / 12)))
-      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.24 / 12))) / (1000 * 60 * 60 * 24))
-      const hours = now.getHours()
-      const minutes = now.getMinutes()
-      const seconds = now.getSeconds()
+      const exactBirthDate = '01/07/1994/07:10' // mm-dd-yyyy-mm-ss
+      const months = exactBirthDate.slice(0, 2)
+      const days = Number(exactBirthDate.slice(3, 5))
+      const years = exactBirthDate.slice(6, 10)
+      const exactTime = Number(exactBirthDate.slice(11, 13))
+      const exactMinutes = Number(exactBirthDate.slice(14, 16))
 
-      this.myExactAge = `${years} years, ${months} months, ${days} days, ${hours} hours : ${minutes} minutes : ${seconds} seconds`
+      const birthDate = new Date(`${months}/${days + 1}/${years}`)
+      const hours = now.getHours() - exactTime
+      const minutes = now.getMinutes() - exactMinutes
+      const seconds = now.getSeconds()
+      const endingDate = new Date().toISOString().substr(0, 10) // YYYY-MM-DD
+
+      let startDate = new Date(birthDate.toISOString().substr(0, 10))
+      let endDate = new Date(endingDate)
+
+      if (startDate > endDate) {
+        const swap = startDate
+        startDate = endDate
+        endDate = swap
+      }
+
+      const startYear = startDate.getFullYear()
+      const february = (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0 ? 29 : 28
+      const daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+      let yearDiff = endDate.getFullYear() - startYear
+      let monthDiff = endDate.getMonth() - startDate.getMonth()
+      let dayDiff = endDate.getDate() - startDate.getDate()
+
+      if (monthDiff < 0) {
+        yearDiff--
+        monthDiff += 12
+      }
+
+      if (dayDiff < 0) {
+        if (monthDiff > 0) {
+          monthDiff--
+        } else {
+          yearDiff--
+          monthDiff = 11
+        }
+        dayDiff += daysInMonth[startDate.getMonth()]
+      }
+
+      this.myExactAge = `${yearDiff} years, ${monthDiff} months, ${dayDiff} days, ${hours < 0 ? 0 : hours} hours : ${minutes < 0 ? 0 : minutes} minutes : ${seconds} seconds`
     },
 
     typeText () {
@@ -444,6 +618,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.grid-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  position: relative;
+}
 .typeWiriter {
   width: 100%;
   height: calc(100vh);
@@ -504,6 +686,10 @@ export default {
 
   .action-btn {
     font-size: 2em;
+  }
+
+  .grid-col {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -710,7 +896,45 @@ export default {
   transform: translateX(20px);
   opacity: 0;
 }
+
+.emoji::after {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.wave::after {
+  content: '✋';
+  --emoji: '👋';
+  animation-name: twoFrames;
+  animation-duration: 0.8s;
+}
+
+@keyframes twoFrames {
+  50% {
+    content: var(--emoji);
+  }
+}
+.bomb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
+.responsibilities-list {
+  font-style: italic;
+
+  li {
+    list-style-type: '👉';
+    padding-left: 2ch;
+  }
+}
+
 </style>
+
 <style lang="scss">
 .v-application .link {
   color: #fff !important;
