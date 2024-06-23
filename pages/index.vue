@@ -451,8 +451,9 @@ export default {
 
   methods: {
     sendEmail () {
-      let body = `
-        <h1>Дата и время заявки: </h1>${new Date().toDateString() + ': ' + new Date().getHours() + ':' + new Date().getMinutes()}
+      const dateOfReport = new Date().toDateString() + ' ' + new Date().getHours() + ':' + new Date().getMinutes()
+      const body = `
+        <h1>Дата и время заявки: </h1>${dateOfReport}
         <h1>Имя: </h1>${this.emailName}
         <br>
         <h1>Телефон: </h1>${this.emailPhone}
@@ -462,9 +463,20 @@ export default {
         SecureToken: "3dcaf62d-5eed-484a-89f1-6e4693bdbc71",
         To: 'ban4ellog@gmail.com',
         From: "ban4ellog@gmail.com",
-        Subject: new Date().toDateString() + ': ' + new Date().getHours() + ':' + new Date().getMinutes(),
+        Subject: 'Заявка на обратный звонок: ' + dateOfReport,
         Body: body
-      }).then(message => alert(message));
+      }).then((message, error) => {
+        if (message === 'OK') {
+          console.log("Заявка отправлена успешно!");
+          alert("Заявка отправлена успешно!")
+        } else {
+          console.log(message, error);
+          alert("Упс! Что-то пошло не так. Попробуйте позже")
+        }
+
+        this.emailName = null;
+        this.emailPhone = null;
+      });
     },
 
     getRandomInt (min, max) {
