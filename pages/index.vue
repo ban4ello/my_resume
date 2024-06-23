@@ -196,6 +196,31 @@
             </a>
           </div>
         </div>
+
+        <div class="email-form">
+          <div class="d-flex gap-4" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+            <h2>Заказать звонок</h2>
+            <h4>Оставьте заявку и наш менеджер перезвонит Вам!</h4>
+          </div>
+
+          <input v-model="emailName" type="text" name="name" placeholder="Ваше имя:">
+          <input v-model="emailPhone" type="text" name="phone" placeholder="Ваш телефон:">
+
+          <button :disabled="!emailAccess" @click="sendEmail()" class="email-form-btn">
+            Заказать звонок
+          </button>
+
+          <div style="
+            display: flex;
+            max-height: 30px;
+            align-items: center;
+            align-content: center;
+            gap: 10px;
+          ">
+            <input v-model="emailAccess" type="checkbox" id="horns" name="horns" style="width: max-content;" />
+            <label for="horns">Я согласен(а) с условиями передачи информации</label>
+          </div>
+        </div>
       </div>
     </v-col>
   </v-row>
@@ -207,6 +232,9 @@ export default {
 
   data () {
     return {
+      emailName: '',
+      emailPhone: '',
+      emailAccess: true,
       showBomb: false,
       showExplode: false,
       showActivateBtn: false,
@@ -358,6 +386,14 @@ export default {
     const description = `I am Ivan. I'm ${new Date().getFullYear() - 1994} years old. And I really love developing software and electronic devices.`
 
     return {
+      script: [
+        {
+          src: 'https://smtpjs.com/v3/smtp.js'
+        },
+        {
+          type:'text/javascript',
+        }
+      ],
       title,
       meta: [
         {
@@ -414,6 +450,23 @@ export default {
   },
 
   methods: {
+    sendEmail () {
+      let body = `
+        <h1>Дата и время заявки: </h1>${new Date().toDateString() + ': ' + new Date().getHours() + ':' + new Date().getMinutes()}
+        <h1>Имя: </h1>${this.emailName}
+        <br>
+        <h1>Телефон: </h1>${this.emailPhone}
+      `;
+
+      Email.send({
+        SecureToken: "3dcaf62d-5eed-484a-89f1-6e4693bdbc71",
+        To: 'ban4ellog@gmail.com',
+        From: "ban4ellog@gmail.com",
+        Subject: new Date().toDateString() + ': ' + new Date().getHours() + ':' + new Date().getMinutes(),
+        Body: body
+      }).then(message => alert(message));
+    },
+
     getRandomInt (min, max) {
       min = Math.ceil(min)
       max = Math.floor(max)
@@ -939,5 +992,47 @@ export default {
 .v-application .link {
   color: #fff !important;
   text-decoration: none;
+}
+
+.email-form {
+  width: 500px;
+  background-color: #fff;
+  color: #000;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  
+  input {
+    padding: 5px 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    color: #000;
+    width: 100%;
+    border-radius: 15px;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #FFEB3B;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 35px;
+    font-weight: 800;
+  }
+
+  button:disabled,
+  button[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 </style>
